@@ -61,7 +61,7 @@ export default defineComponent({
 
         if (message === "ok") {
           localStorage.setItem("leadhit-site-id", this.siteId);
-          this.$router.push("/analytics");
+          this.$router.push("/analytic");
         }
       } catch (error) {
         const e = error as Error;

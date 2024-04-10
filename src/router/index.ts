@@ -19,6 +19,10 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "analytic" */ "../views/AnalyticView.vue"),
+    beforeEnter() {
+      const leadhitSiteId = localStorage.getItem("leadhit-site-id");
+      if (!leadhitSiteId) return "/auth";
+    },
   },
 ];
 
