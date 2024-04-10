@@ -1,5 +1,6 @@
 <template>
   <Menubar :model="menuitems" />
+
   <router-view />
 </template>
 <script lang="ts">
@@ -32,3 +33,15 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss">
+.container {
+  position: relative;
+  height: 30rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+}
+</style>

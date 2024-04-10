@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <InputText />
     <Button label="submit" />
   </div>
