@@ -91,8 +91,8 @@ export default {
 
 <style scoped lang="scss">
 .chart {
-  padding-top: 2rem;
+  padding: 2rem 0;
   width: 100%;
-  height: 35rem;
+  height: 70vh;
 }
 </style>
