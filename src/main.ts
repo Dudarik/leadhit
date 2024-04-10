@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 
 import PrimeVue from "primevue/config";
+import ToastService from "primevue/toastservice";
 import { locale } from "./config";
 
 import "primevue/resources/primevue.min.css";
@@ -12,6 +13,7 @@ import "primeicons/primeicons.css";
 
 const app = createApp(App);
 
+app.use(ToastService);
 app.use(PrimeVue, {
   locale,
 });

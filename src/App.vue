@@ -2,15 +2,17 @@
   <Menubar :model="menuitems" />
 
   <router-view />
+  <Toast />
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 
 import Menubar from "primevue/menubar";
+import Toast from "primevue/toast";
 
 export default defineComponent({
   name: "App",
-  components: { Menubar },
+  components: { Menubar, Toast },
   data() {
     return {
       menuitems: [

@@ -38,10 +38,40 @@ export default defineComponent({
     };
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       if (this.siteId.length !== 24) {
         this.isInputError = true;
         return;
+      }
+      try {
+        const response = await fetch(
+          "https://track-api.leadhit.io/client/test_auth",
+          {
+            headers: {
+              "Api-Key": "5f8475902b0be670555f1bb3:eEZn8u05G3bzRpdL7RiHCvrYAYo",
+              "Leadhit-Site-Id": this.siteId,
+            },
+          }
+        );
+        if (response.status !== 200)
+          throw new Error(
+            `${response.status}: Не удалось получить данные с сервера`
+          );
+        const { message } = await response.json();
+
+        if (message === "ok") {
+          localStorage.setItem("leadhit-site-id", this.siteId);
+          this.$router.push("/analytics");
+        }
+      } catch (error) {
+        const e = error as Error;
+        console.error(error);
+        this.$toast.add({
+          severity: "error",
+          summary: "Ошибка",
+          detail: e.message,
+          life: 3000,
+        });
       }
     },
     onInputSiteId() {
