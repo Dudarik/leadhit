@@ -1,17 +1,34 @@
 <template>
-  <nav>
-    <router-link to="/">Auth</router-link> |
-    <router-link to="/analytic">Analytic</router-link>
-  </nav>
+  <Menubar :model="menuitems" />
   <router-view />
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>
+import Menubar from "primevue/menubar";
+
+export default defineComponent({
+  name: "App",
+  components: { Menubar },
+  data() {
+    return {
+      menuitems: [
+        {
+          label: "Авторизация",
+          icon: "pi pi-user",
+          command: () => {
+            this.$router.push("/auth");
+          },
+        },
+        {
+          label: "Аналитика",
+          icon: "pi pi-chart-line",
+          command: () => {
+            this.$router.push("/analytic");
+          },
+        },
+      ],
+    };
+  },
+});
+</script>

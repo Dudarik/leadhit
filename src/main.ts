@@ -7,7 +7,8 @@ import PrimeVue from "primevue/config";
 import { locale } from "./config";
 
 import "primevue/resources/primevue.min.css";
-import "primevue/resources/themes/mira/theme.css";
+import "primevue/resources/themes/aura-light-lime/theme.css";
+import "primeicons/primeicons.css";
 
 const app = createApp(App);
 
