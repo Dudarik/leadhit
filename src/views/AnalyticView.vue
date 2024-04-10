@@ -16,6 +16,7 @@ export default {
     };
   },
   mounted() {
+    //@ts-ignore
     let root = am5.Root.new(this.$refs.chartdiv as HTMLDivElement);
 
     root.setThemes([am5themes_Animated.new(root)]);
@@ -81,6 +82,7 @@ export default {
     this.root = root;
   },
   beforeUnmount() {
+    //@ts-ignore
     if (this.root) {
       //@ts-ignore
       this.root.dispose();
