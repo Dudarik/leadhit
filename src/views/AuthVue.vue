@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1><span class="logo_first_part">Lead</span>Hit</h1>
+    <h1 class="logo"><span class="logo_first_part">Lead</span>Hit</h1>
     <form class="login_form">
       <div class="form_input">
         <FloatLabel>
@@ -28,6 +28,8 @@ import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import FloatLabel from "primevue/floatlabel";
 
+import { API_URL, API_KEY } from "@/config";
+
 export default defineComponent({
   name: "AuthView",
   components: { InputText, Button, FloatLabel },
@@ -43,16 +45,14 @@ export default defineComponent({
         this.isInputError = true;
         return;
       }
+
       try {
-        const response = await fetch(
-          "https://track-api.leadhit.io/client/test_auth",
-          {
-            headers: {
-              "Api-Key": "5f8475902b0be670555f1bb3:eEZn8u05G3bzRpdL7RiHCvrYAYo",
-              "Leadhit-Site-Id": this.siteId,
-            },
-          }
-        );
+        const response = await fetch(API_URL, {
+          headers: {
+            "Api-Key": API_KEY,
+            "Leadhit-Site-Id": this.siteId,
+          },
+        });
         if (response.status !== 200)
           throw new Error(
             `${response.status}: Не удалось получить данные с сервера`
@@ -81,9 +81,23 @@ export default defineComponent({
 });
 </script>
 <style scoped lang="scss">
-.logo_first_part {
-  color: #ff4402;
+.logo {
+  position: relative;
+  width: 8rem;
+  .logo_first_part {
+    color: #ff4402;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    background-image: url("../assets/angle.png");
+    width: 33px;
+    height: 39px;
+    right: -1rem;
+    top: -1rem;
+  }
 }
+
 .login_form {
   display: flex;
   align-items: center;
