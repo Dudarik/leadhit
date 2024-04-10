@@ -4,9 +4,9 @@
 <script lang="ts">
 /* eslint-disable */
 import * as am5 from "@amcharts/amcharts5";
-import { Root } from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import { data } from "./chartData";
 
 export default {
   name: "HelloWorld",
@@ -22,29 +22,13 @@ export default {
 
     let chart = root.container.children.push(
       am5xy.XYChart.new(root, {
-        panY: false,
-        layout: root.verticalLayout,
+        focusable: true,
+        panX: true,
+        panY: true,
+        wheelX: "panX",
+        wheelY: "zoomX",
       })
     );
-
-    // Define data
-    let data = [
-      {
-        category: "Research",
-        value1: 1000,
-        value2: 588,
-      },
-      {
-        category: "Marketing",
-        value1: 1200,
-        value2: 1800,
-      },
-      {
-        category: "Sales",
-        value1: 850,
-        value2: 1230,
-      },
-    ];
 
     // Create Y-axis
     let yAxis = chart.yAxes.push(
@@ -57,33 +41,35 @@ export default {
     let xAxis = chart.xAxes.push(
       am5xy.CategoryAxis.new(root, {
         renderer: am5xy.AxisRendererX.new(root, {}),
-        categoryField: "category",
+        categoryField: "date",
       })
     );
     xAxis.data.setAll(data);
 
-    // Create series
-    let series1 = chart.series.push(
-      am5xy.ColumnSeries.new(root, {
-        name: "Series",
+    let series = chart.series.push(
+      am5xy.LineSeries.new(root, {
+        name: "Визитов",
         xAxis: xAxis,
         yAxis: yAxis,
-        valueYField: "value1",
-        categoryXField: "category",
+        categoryXField: "date",
+        valueYField: "visits",
+        fill: am5.color("#84cc16"),
+        stroke: am5.color("#84cc16"),
+        tooltip: am5.Tooltip.new(root, {
+          pointerOrientation: "horizontal",
+          labelText: "{categoryX} было {valueY} визитов",
+        }),
       })
     );
-    series1.data.setAll(data);
+    series.strokes.template.setAll({
+      strokeWidth: 3,
+    });
+    series.fills.template.setAll({
+      fillOpacity: 0.2,
+      visible: true,
+    });
 
-    let series2 = chart.series.push(
-      am5xy.ColumnSeries.new(root, {
-        name: "Series",
-        xAxis: xAxis,
-        yAxis: yAxis,
-        valueYField: "value2",
-        categoryXField: "category",
-      })
-    );
-    series2.data.setAll(data);
+    series.data.setAll(data);
 
     // Add legend
     let legend = chart.children.push(am5.Legend.new(root, {}));
@@ -94,16 +80,16 @@ export default {
     //@ts-ignore
     this.root = root;
   },
-  // beforeUnmount() {
-  //   if (this.root) {
-  //     this.root.dispose();
-  //   }
-  // },
+  beforeUnmount() {
+    if (this.root) {
+      //@ts-ignore
+      this.root.dispose();
+    }
+  },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .chart {
   padding-top: 2rem;
   width: 100%;
