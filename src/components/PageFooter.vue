@@ -20,9 +20,6 @@ export default defineComponent({
       footerLinks,
     };
   },
-  mounted() {
-    console.log(location);
-  },
 });
 </script>
 

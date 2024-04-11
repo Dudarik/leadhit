@@ -2,7 +2,6 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-// import Vuex from "vuex";
 
 import PrimeVue from "primevue/config";
 import ToastService from "primevue/toastservice";
@@ -14,7 +13,6 @@ import "primeicons/primeicons.css";
 
 const app = createApp(App);
 
-// app.use(Vuex);
 app.use(ToastService);
 app.use(PrimeVue, {
   locale,
