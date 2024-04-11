@@ -6,16 +6,19 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import { data } from "./chartData";
+import { data } from "../db/chartData";
+import store from "@/store";
 
 export default {
   name: "HelloWorld",
+  $store: store,
   data() {
     return {
       root: am5.Root,
     };
   },
   mounted() {
+    this.$store.commit("setData", data);
     //@ts-ignore
     let root = am5.Root.new(this.$refs.chartdiv as HTMLDivElement);
 
@@ -45,7 +48,8 @@ export default {
         categoryField: "date",
       })
     );
-    xAxis.data.setAll(data);
+
+    xAxis.data.setAll(this.$store.getters.getData);
 
     let series = chart.series.push(
       am5xy.LineSeries.new(root, {
@@ -70,7 +74,7 @@ export default {
       visible: true,
     });
 
-    series.data.setAll(data);
+    series.data.setAll(this.$store.getters.getData);
 
     // Add legend
     let legend = chart.children.push(am5.Legend.new(root, {}));
