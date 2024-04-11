@@ -28,7 +28,13 @@ import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import FloatLabel from "primevue/floatlabel";
 
-import { API_URL, API_KEY } from "@/config";
+import {
+  API_URL,
+  API_KEY,
+  RESPONSE_STATUS_OK,
+  TOAST_LIFE_TIME,
+} from "@/config";
+const SITE_ID_LENGTH = 24;
 
 export default defineComponent({
   name: "AuthView",
@@ -41,7 +47,7 @@ export default defineComponent({
   },
   methods: {
     async onSubmit() {
-      if (this.siteId.length !== 24) {
+      if (this.siteId.length !== SITE_ID_LENGTH) {
         this.isInputError = true;
         return;
       }
@@ -53,7 +59,7 @@ export default defineComponent({
             "Leadhit-Site-Id": this.siteId,
           },
         });
-        if (response.status !== 200)
+        if (response.status !== RESPONSE_STATUS_OK)
           throw new Error(
             `${response.status}: Не удалось получить данные с сервера`
           );
@@ -70,7 +76,7 @@ export default defineComponent({
           severity: "error",
           summary: "Ошибка",
           detail: e.message,
-          life: 3000,
+          life: TOAST_LIFE_TIME,
         });
       }
     },
